@@ -1,3 +1,3 @@
 import * as maas from "maas";
 
-maas.greet();
+maas.greet("User");

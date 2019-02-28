@@ -18,10 +18,17 @@ cfg_if! {
 
 #[wasm_bindgen]
 extern {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
+
+    #[wasm_bindgen(js_namespace = window)]
     fn alert(s: &str);
 }
 
 #[wasm_bindgen]
-pub fn greet() {
-    alert("Hello, maas!");
+pub fn greet(name: &str) {
+    let greeting: String = format!("Hi, {}!", name);
+
+    log(&greeting);
+    alert(&greeting);
 }
