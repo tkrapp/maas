@@ -10,7 +10,7 @@ module.exports = [{
     },
     mode: "development",
     plugins: [
-      new CopyWebpackPlugin(['index.html']),
+      new CopyWebpackPlugin(['maas.html']),
       new CopyWebpackPlugin(['maas.css']),
       new CopyWebpackPlugin(['nostradamus.txt']),
       new CopyWebpackPlugin(['shakespeare.txt']),
