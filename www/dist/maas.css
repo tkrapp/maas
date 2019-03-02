@@ -10,7 +10,28 @@ label {
     display: block;
 }
 
+.markov-form div.card {
+    height: calc(100% - 1em);
+}
+
+.spinner-border {
+    display: none;
+}
+
+.spinner-border.show {
+    display: inline-block;
+}
+
 #maas-console {
     list-style: none;
     padding-left: 0;
+}
+
+#maas-console .list-group-item {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+#maas-console .list-group-item.show {
+    opacity: 1;
 }
