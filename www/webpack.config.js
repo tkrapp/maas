@@ -5,7 +5,7 @@ module.exports = [{
     entry: "./bootstrap.js",
     target: "web",
     output: {
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, "..", "docs"),
       filename: "bootstrap.js",
     },
     mode: "development",
@@ -20,7 +20,7 @@ module.exports = [{
     entry: "./bootstrap.worker.js",
     target: "webworker",
     output: {
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, "..", "docs"),
       filename: "bootstrap.worker.js",
     },
     mode: "development",
