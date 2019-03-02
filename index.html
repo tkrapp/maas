@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>MAAS - Markov As A Service</title>
+    <link rel="stylesheet" href="./maas.css" />
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm container-fluid">
+          <div class="row">
+            <header class="col-sm">
+              <h1>MAAS</h1>
+              <small>Markov As A Service</small>
+            </header>
+          </div>
+          <main>
+            <div class="row">
+              <fieldset class="col-sm">
+                <div class="card">
+                  <div class="card-body">
+                    <legend class="card-title">Eigene Datei verwenden</legend>
+                    <div class="card-text">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="input-text" />
+                        <label class="custom-file-label" for="input-text">Datei</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <button class="btn btn-primary" id="generate-markov-btn">Erzeuge Markovkette</button>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="col-sm">
+                <div class="card">
+                  <div class="card-body">
+                    <legend class="card-title">Vorgefertigte Dateien</legend>
+                    <div class="card-text"></div>
+                  </div>
+                  <div class="card-footer"></div>
+                </div>
+              </fieldset>
+              <fieldset class="col-sm">
+                <div class="card">
+                  <div class="card-body">
+                    <legend class="card-title">Text erzeugen</legend>
+                    <div class="card-text">
+                      <div class="form-group">
+                        <label for="number-of-words">Mindestanzahl an Wörtern</label>
+                        <input class="form-control" type="number" id="number-of-words" value="100" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <button class="btn btn-primary" id="generate-text-btn" disabled>Los!</button>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="row">
+              <div class="col-sm" id="generate-text-output"></div>
+            </div>
+          </main>
+        </div>
+        <ul class="col-sm" id="maas-console"></ul>
+      </div>
+    </div>
+    <script src="./bootstrap.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
