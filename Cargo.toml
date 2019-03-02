@@ -2,6 +2,9 @@
 name = "maas"
 version = "0.1.0"
 authors = ["Thomas Krapp <thomas@gmail.com>"]
+description = "A fun project to try Rust and WebAssembly"
+repository = ""
+license = "GPLv3"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -9,26 +12,62 @@ crate-type = ["cdylib", "rlib"]
 [features]
 default = ["console_error_panic_hook"]
 
-[dependencies]
-cfg-if = "0.1.2"
-wasm-bindgen = "0.2"
+[profile.release]
+# Tell `rustc` to optimize for small code size.
+opt-level = "s"
+
+[dependencies.cfg-if]
+version = "0.1.2"
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
 # logging them with `console.error`. This is great for development, but requires
 # all the `std::fmt` and `std::panicking` infrastructure, so isn't great for
 # code size when deploying.
-console_error_panic_hook = { version = "0.1.1", optional = true }
+[dependencies.console_error_panic_hook]
+version = "0.1.1"
+optional = true
 
 # `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
 # compared to the default allocator's ~10K. It is slower than the default
 # allocator, however.
 #
 # Unfortunately, `wee_alloc` requires nightly Rust when targeting wasm for now.
-wee_alloc = { version = "0.4.2", optional = true }
+[dependencies.wee_alloc]
+version = "0.4.2"
+optional = true
 
-[dev-dependencies]
-wasm-bindgen-test = "0.2"
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "console",
+]
 
-[profile.release]
-# Tell `rustc` to optimize for small code size.
-opt-level = "s"
+[dependencies.js-sys]
+version = "0.3.14"
+
+[dependencies.regex]
+version = "1"
+
+[dependencies.rand]
+version = "0.6.5"
+
+[dependencies.lazy_static]
+version = "1.3.0"
+
+[dependencies.wasm-bindgen]
+version = "0.2"
+features = [
+  "serde-serialize",
+]
+
+[dependencies.serde_json]
+version = "1.0.32"
+
+[dependencies.serde_derive]
+version = "1.0.80"
+
+[dependencies.serde]
+version = "1.0.80"
+
+[dev-dependencies.wasm-bindgen-test]
+version = "0.2"
