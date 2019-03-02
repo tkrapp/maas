@@ -12,19 +12,19 @@
   <body>
     <div class="container-fluid">
       <div class="row">
+        <header class="col-sm">
+          <h1>MAAS</h1>
+          <small>Markov As A Service</small>
+        </header>
+      </div>
+      <div class="row">
         <div class="col-sm container-fluid">
-          <div class="row">
-            <header class="col-sm">
-              <h1>MAAS</h1>
-              <small>Markov As A Service</small>
-            </header>
-          </div>
           <main>
             <div class="row">
-              <fieldset class="col-sm">
-                <div class="card">
+              <div class="col-sm">
+                <div class="card shadow mb-5 bg-white rounded">
                   <div class="card-body">
-                    <legend class="card-title">Eigene Datei verwenden</legend>
+                    <h2 class="card-title">Eigene Datei verwenden</h2>
                     <div class="card-text">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="input-text" />
@@ -36,20 +36,30 @@
                     <button class="btn btn-primary" id="generate-markov-btn">Erzeuge Markovkette</button>
                   </div>
                 </div>
-              </fieldset>
-              <fieldset class="col-sm">
-                <div class="card">
+              </div>
+              <div class="col-sm">
+                <div class="card shadow mb-5 bg-white rounded">
                   <div class="card-body">
-                    <legend class="card-title">Vorgefertigte Dateien</legend>
-                    <div class="card-text"></div>
+                    <h2 class="card-title">Vorgefertigte Dateien</h2>
+                    <div class="card-text">
+                      <div class="form-group">
+                        <button class="btn btn-success srv-resource" data-href="./texts/nostradamus.txt">
+                          nostradamus.txt
+                        </button>
+                      </div>
+                      <div class="form-group">
+                        <button class="btn btn-success srv-resource" data-href="./texts/shakespeare.txt">
+                          shakespeare.txt
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <div class="card-footer"></div>
                 </div>
-              </fieldset>
-              <fieldset class="col-sm">
-                <div class="card">
+              </div>
+              <div class="col-sm">
+                <div class="card shadow mb-5 bg-white rounded">
                   <div class="card-body">
-                    <legend class="card-title">Text erzeugen</legend>
+                    <h2 class="card-title">Text erzeugen</h2>
                     <div class="card-text">
                       <div class="form-group">
                         <label for="number-of-words">Mindestanzahl an Wörtern</label>
@@ -61,14 +71,28 @@
                     <button class="btn btn-primary" id="generate-text-btn" disabled>Los!</button>
                   </div>
                 </div>
-              </fieldset>
+              </div>
             </div>
             <div class="row">
-              <div class="col-sm" id="generate-text-output"></div>
+              <div class="col-sm">
+                <div class="card shadow mb-5 bg-white rounded">
+                  <div class="card-body">
+                    <h2 class="card-title">Ausgabe</h2>
+                    <p class="card-text" id="generate-text-output"></p>
+                  </div>
+                </div>
+              </div>
             </div>
           </main>
         </div>
-        <ul class="col-sm" id="maas-console"></ul>
+        <div class="col-sm">
+          <div class="card shadow mb-5 bg-white rounded">
+            <div class="card-body">
+              <h2 class="card-title">Log</h2>
+              <ul class="card-text list-group" id="maas-console"></ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script src="./bootstrap.js"></script>
