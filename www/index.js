@@ -36,6 +36,7 @@ const MAASConsole = (new function () {
             now = `${nowDate.getFullYear()}-${nowDate.getMonth() + 1}-${nowDate.getDate()} ${nowDate.getHours()}:${nowDate.getMinutes()}:${nowDate.getSeconds()}`;
 
         logEntry.innerHTML = `${now} - ${message}`;
+        logEntry.classList.add('list-group-item');
 
         consoleElement.appendChild(logEntry);
     };
@@ -67,6 +68,17 @@ document.querySelector('#generate-text-btn').addEventListener('click', function(
 
 document.querySelector('#input-text').addEventListener('change', function() {
     document.querySelector('#generate-text-btn').disabled = true;
+});
+
+document.querySelectorAll('.srv-resource').forEach(function (element) {
+    async function loadResource(evt) {
+        let url = evt.target.getAttribute('data-href'),
+            response = await fetch(url);
+
+        WORKER.postMessage('generate_markov', await response.text());
+    }
+
+    element.addEventListener('click', loadResource);
 });
 
 WORKER.registerCallback('generate_text', function (_type, payload) {

@@ -10,3 +10,7 @@ label {
     display: block;
 }
 
+#maas-console {
+    list-style: none;
+    padding-left: 0;
+}
