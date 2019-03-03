@@ -35,3 +35,7 @@ label {
 #maas-console .list-group-item.show {
     opacity: 1;
 }
+
+#maas-about h3 {
+    font-size: 1.1em;
+}

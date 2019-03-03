@@ -31,16 +31,15 @@ const WORKER = (new function () {
     worker.addEventListener('message', routeMessage);
 }());
 
-const MAASConsole = (new function () {
+const MAAS_CONSOLE = (new function () {
     let self = this,
         consoleElement = document.querySelector('#maas-console');
 
     self.log = function (message) {
         let logEntry = document.createElement('li'),
-            nowDate = new Date(),
-            now = `${nowDate.getFullYear()}-${nowDate.getMonth() + 1}-${nowDate.getDate()} ${nowDate.getHours()}:${nowDate.getMinutes()}:${nowDate.getSeconds()}`;
+            nowDate = new Date();
 
-        logEntry.innerHTML = `${now} - ${message}`;
+        logEntry.innerHTML = `${formatDate(nowDate)} - ${message}`;
         logEntry.classList.add('list-group-item');
         consoleElement.insertBefore(logEntry, consoleElement.firstChild);
 
@@ -55,22 +54,60 @@ const MAASConsole = (new function () {
         self[fn](...args);
     }
     WORKER.registerCallback('maas_console', routeMessage);
+
+    function formatDate(theDate) {
+        return [
+            [
+                theDate.getFullYear(),
+                formatNumber(theDate.getMonth() + 1, 2, '0'),
+                formatNumber(theDate.getDate(), 2, '0')
+            ].join('-'),
+            [
+                formatNumber(theDate.getHours(), 2, '0'),
+                formatNumber(theDate.getMinutes(), 2, '0'),
+                formatNumber(theDate.getSeconds(), 2, '0')
+            ].join(':')
+        ].join(' ');
+    }
+
+    function formatNumber(num, fieldLength, fillChar) {
+        fieldLength = fieldLength || 0;
+        fillChar = fillChar.toString() || '';
+
+        if (fieldLength === 0 && fillChar === '') {
+            return num.toString();
+        }
+
+        num = num.toString();
+        if (num.length < fieldLength) {
+            return `${fillChar.repeat(fieldLength - num.length)}${num}`;
+        }
+
+        return num;
+    }
 }());
 
 document.querySelector('#generate-markov-btn').addEventListener('click', function (evt) {
-    let fileList = document.querySelector('#input-text').files,
+    let file = document.querySelector('#input-text').files[0],
         reader = new FileReader(),
         button = evt.target,
         spinner = button.querySelector('span');
 
-        button.disabled = true;
-        spinner.classList.add('show');
+    if (file === undefined) {
+        MAAS_CONSOLE.log('No file selected');
+        return;
+    }
+
+    button.disabled = true;
+    spinner.classList.add('show');
+
     reader.addEventListener('load', function (evt) {
         WORKER.postMessage('generate_markov', evt.target.result);
     });
     WORKER.registerCallback('generate_markov', hideSpinner);
 
-    reader.readAsText(fileList[0]);
+    reader.readAsText(file);
+    MAAS_CONSOLE.log(`load file ${file.name}`);
 
     function hideSpinner() {
         spinner.classList.remove('show');
@@ -86,9 +123,32 @@ document.querySelector('#generate-text-btn').addEventListener('click', function(
     WORKER.postMessage('generate_text', numberOfWords);
 });
 
-document.querySelector('#input-text').addEventListener('change', function() {
-    document.querySelector('#generate-text-btn').disabled = true;
-});
+(function (fileInput) {
+    let labelElement = document.querySelector('label[for="input-text"]'),
+        generateTextButton = document.querySelector('#generate-text-btn'),
+        originallabelText = labelElement.innerHTML;
+
+    fileInput.addEventListener('change', function(evt) {
+        let file = fileInput.files[0];
+
+        generateTextButton.disabled = true;
+
+        if (labelElement) {
+            let text = originallabelText;
+
+            if (file) {
+                text = file.name;
+            }
+
+            labelElement.innerHTML = text;
+        }
+    });
+
+    if (fileInput.files[0]) {
+        labelElement.innerHTML = fileInput.files[0].name;
+    }
+}(document.querySelector('#input-text')));
+
 
 document.querySelectorAll('.srv-resource').forEach(function (element) {
     async function loadResource(evt) {
@@ -99,6 +159,7 @@ document.querySelectorAll('.srv-resource').forEach(function (element) {
 
         button.disabled = true;
         spinner.classList.add('show');
+        MAAS_CONSOLE.log(`download file ${url}`);
         WORKER.postMessage('generate_markov', await response.text());
         WORKER.registerCallback('generate_markov', hideSpinner);
 
@@ -117,6 +178,6 @@ WORKER.registerCallback('generate_text', function (_type, payload) {
     document.querySelector('#generate-text-output').innerHTML = payload.replace(/\n/g, '<br />\n');
 });
 
-WORKER.registerCallback('generate_markov', function (_type, payload) {
+WORKER.registerCallback('generate_markov', function (_type, _payload) {
     document.querySelector('#generate-text-btn').disabled = false;
 });
