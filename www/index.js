@@ -1,5 +1,3 @@
-import * as maas from "maas";
-
 const WORKER = (new function () {
     let self = this,
         worker = new Worker('bootstrap.worker.js'),
