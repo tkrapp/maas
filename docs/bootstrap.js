@@ -46,44 +46,6 @@
 /******/ 		return __webpack_require__.p + "" + chunkId + ".bootstrap.js"
 /******/ 	}
 /******/
-/******/ 	// object to store loaded and loading wasm modules
-/******/ 	var installedWasmModules = {};
-/******/
-/******/ 	function promiseResolve() { return Promise.resolve(); }
-/******/
-/******/ 	var wasmImportObjects = {
-/******/ 		"../pkg/maas_bg.wasm": function() {
-/******/ 			return {
-/******/ 				"./maas": {
-/******/ 					"__wbg_random_50be60963c470357": function() {
-/******/ 						return installedModules["../pkg/maas.js"].exports["__wbg_random_50be60963c470357"]();
-/******/ 					},
-/******/ 					"__wbindgen_string_new": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/maas.js"].exports["__wbindgen_string_new"](p0i32,p1i32);
-/******/ 					},
-/******/ 					"__wbg_log_8eecde513d7ad7af": function(p0i32) {
-/******/ 						return installedModules["../pkg/maas.js"].exports["__wbg_log_8eecde513d7ad7af"](p0i32);
-/******/ 					},
-/******/ 					"__wbindgen_object_drop_ref": function(p0i32) {
-/******/ 						return installedModules["../pkg/maas.js"].exports["__wbindgen_object_drop_ref"](p0i32);
-/******/ 					},
-/******/ 					"__wbg_new_a99726b0abef495b": function() {
-/******/ 						return installedModules["../pkg/maas.js"].exports["__wbg_new_a99726b0abef495b"]();
-/******/ 					},
-/******/ 					"__wbg_stack_4931b18709aff089": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/maas.js"].exports["__wbg_stack_4931b18709aff089"](p0i32,p1i32);
-/******/ 					},
-/******/ 					"__wbg_error_f7214ae7db04600c": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/maas.js"].exports["__wbg_error_f7214ae7db04600c"](p0i32,p1i32);
-/******/ 					},
-/******/ 					"__wbindgen_throw": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/maas.js"].exports["__wbindgen_throw"](p0i32,p1i32);
-/******/ 					}
-/******/ 				}
-/******/ 			};
-/******/ 		},
-/******/ 	};
-/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/
@@ -164,38 +126,6 @@
 /******/ 				document.head.appendChild(script);
 /******/ 			}
 /******/ 		}
-/******/
-/******/ 		// Fetch + compile chunk loading for webassembly
-/******/
-/******/ 		var wasmModules = {"0":["../pkg/maas_bg.wasm"]}[chunkId] || [];
-/******/
-/******/ 		wasmModules.forEach(function(wasmModuleId) {
-/******/ 			var installedWasmModuleData = installedWasmModules[wasmModuleId];
-/******/
-/******/ 			// a Promise means "currently loading" or "already loaded".
-/******/ 			if(installedWasmModuleData)
-/******/ 				promises.push(installedWasmModuleData);
-/******/ 			else {
-/******/ 				var importObject = wasmImportObjects[wasmModuleId]();
-/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/maas_bg.wasm":"38bf44335cfa67c35977"}[wasmModuleId] + ".module.wasm");
-/******/ 				var promise;
-/******/ 				if(importObject instanceof Promise && typeof WebAssembly.compileStreaming === 'function') {
-/******/ 					promise = Promise.all([WebAssembly.compileStreaming(req), importObject]).then(function(items) {
-/******/ 						return WebAssembly.instantiate(items[0], items[1]);
-/******/ 					});
-/******/ 				} else if(typeof WebAssembly.instantiateStreaming === 'function') {
-/******/ 					promise = WebAssembly.instantiateStreaming(req, importObject);
-/******/ 				} else {
-/******/ 					var bytesPromise = req.then(function(x) { return x.arrayBuffer(); });
-/******/ 					promise = bytesPromise.then(function(bytes) {
-/******/ 						return WebAssembly.instantiate(bytes, importObject);
-/******/ 					});
-/******/ 				}
-/******/ 				promises.push(installedWasmModules[wasmModuleId] = promise.then(function(res) {
-/******/ 					return __webpack_require__.w[wasmModuleId] = (res.instance || res).exports;
-/******/ 				}));
-/******/ 			}
-/******/ 		});
 /******/ 		return Promise.all(promises);
 /******/ 	};
 /******/
@@ -254,9 +184,6 @@
 /******/ 	// on error function for async loading
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
 /******/
-/******/ 	// object with all WebAssembly.instance exports
-/******/ 	__webpack_require__.w = {};
-/******/
 /******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
 /******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
 /******/ 	jsonpArray.push = webpackJsonpCallback;
@@ -278,7 +205,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// A dependency graph that contains any wasm must all be imported\n// asynchronously. This `bootstrap.js` file does the single async import, so\n// that no one else needs to worry about it again.\n__webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./index.js */ \"./index.js\"))\n  .catch(e => console.error(\"Error importing `index.js`:\", e));\n\n\n//# sourceURL=webpack:///./bootstrap.js?");
+eval("// A dependency graph that contains any wasm must all be imported\n// asynchronously. This `bootstrap.js` file does the single async import, so\n// that no one else needs to worry about it again.\n__webpack_require__.e(/*! import() */ 0).then(__webpack_require__.t.bind(null, /*! ./index.js */ \"./index.js\", 7))\n  .catch(e => console.error(\"Error importing `index.js`:\", e));\n\n\n//# sourceURL=webpack:///./bootstrap.js?");
 
 /***/ })
 

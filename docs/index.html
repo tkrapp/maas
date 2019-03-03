@@ -24,18 +24,18 @@
               <div class="col-sm">
                 <div class="card shadow mb-3 bg-white rounded">
                   <div class="card-body">
-                    <h2 class="card-title">Eigene Datei verwenden</h2>
+                    <h2 class="card-title">Use your own file</h2>
                     <div class="card-text">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="input-text" />
-                        <label class="custom-file-label" for="input-text">Datei</label>
+                        <label class="custom-file-label" for="input-text">File</label>
                       </div>
                     </div>
                   </div>
                   <div class="card-footer">
                     <button class="btn btn-primary" id="generate-markov-btn">
                       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                      Erzeuge Markovkette
+                      Generate Markov Chain
                     </button>
                   </div>
                 </div>
@@ -43,18 +43,18 @@
               <div class="col-sm">
                 <div class="card shadow mb-3 bg-white rounded">
                   <div class="card-body">
-                    <h2 class="card-title">Vorgefertigte Dateien</h2>
+                    <h2 class="card-title">Predefined files</h2>
                     <div class="card-text">
                       <div class="form-group">
                         <button class="btn btn-success srv-resource" data-href="./nostradamus.txt">
                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                          nostradamus.txt
+                          nostradamus.txt (de)
                         </button>
                       </div>
                       <div class="form-group">
                         <button class="btn btn-success srv-resource" data-href="./shakespeare.txt">
                           <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                          shakespeare.txt
+                          shakespeare.txt (en)
                         </button>
                       </div>
                     </div>
@@ -64,16 +64,16 @@
               <div class="col-sm">
                 <div class="card shadow mb-3 bg-white rounded">
                   <div class="card-body">
-                    <h2 class="card-title">Text erzeugen</h2>
+                    <h2 class="card-title">Generate text</h2>
                     <div class="card-text">
                       <div class="form-group">
-                        <label for="number-of-words">Mindestanzahl an Wörtern</label>
-                        <input class="form-control" type="number" id="number-of-words" value="100" />
+                        <label for="number-of-words">Minimum number of words</label>
+                        <input class="form-control" type="number" id="number-of-words" value="10" />
                       </div>
                     </div>
                   </div>
                   <div class="card-footer">
-                    <button class="btn btn-primary" id="generate-text-btn" disabled>Los!</button>
+                    <button class="btn btn-primary" id="generate-text-btn" disabled>Go!</button>
                   </div>
                 </div>
               </div>
@@ -82,7 +82,7 @@
               <div class="col-sm">
                 <div class="card shadow mb-5 bg-white rounded">
                   <div class="card-body">
-                    <h2 class="card-title">Ausgabe</h2>
+                    <h2 class="card-title">Output</h2>
                     <p class="card-text" id="generate-text-output"></p>
                   </div>
                 </div>
@@ -91,11 +91,34 @@
           </main>
         </div>
         <div class="col-sm">
-          <div class="card shadow mb-5 bg-white rounded">
+          <div class="card shadow mb-3 bg-white rounded">
             <div class="card-body">
               <h2 class="card-title">Log</h2>
               <ul class="card-text list-group" id="maas-console"></ul>
             </div>
+          </div>
+          <div class="card shadow mb-3 bg-white rounded">
+            <div class="card-body" id="maas-about">
+              <h2 class="card-title">About</h2>
+              <div class="card-text">
+                <h3>Description</h3>
+                <p>
+                  This is just a fun project using Rust + WebAssembly.
+                  You can generate a Markov Chain using your own text files or
+                  some predefined files. This Markov Chain can then be used to
+                  generate new texts with sometimes funny results.</p>
+                <h3>The code</h3>
+                <p>
+                  The <a href="https://github.com/tkrapp/maas">source code</a>
+                  can be found on GitHub. Feel free to use it for your own research.
+                  It is not very optimized and not idiomatic Rust but it works quite well.
+                </p>
+                <h3>Privacy</h3>
+                <p>
+                  No data is shared with the server. All calculation is done on
+                  your local machine. The results are not stored anywhere.
+                </p>
+              </div>
           </div>
         </div>
       </div>
